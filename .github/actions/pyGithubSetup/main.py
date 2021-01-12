@@ -26,7 +26,7 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
   pulls: List[PullRequest.PullRequest] = []
   pulls_str = ''
   try:
-    for pull in repo.get_pulls(state='merged', sort='updated', direction='desc'):
+    for pull in repo.get_pulls(state='closed', sort='updated', direction='desc'):
       print(pull.title)
       pulls_str += pull.title
 #       if not pull.merged_at:
