@@ -14,16 +14,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Read current_version from version.ini file
-        id: currentVersion
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./version.ini
       - name: Install PyGithub & Execute py script
         id: demoId
         uses:  ./.github/actions/pyGithubSetup
         with:
           REPO_NAME: ${{ github.event.repository.name }}  
-          CUR_VERSION:  ${{ steps.currentVersion.outputs.content }}
           ACCESS_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
           USER_NAME: ${{ github.actor }}
