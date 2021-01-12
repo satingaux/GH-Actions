@@ -79,7 +79,7 @@ def main():
   tagMessage = 'Default Tag Message'
   releaseName = 'Release'
   releaseMessage = 'Features added/improved in ' + REPO_NAME + ':\n\n' + 'Following are the PRs title which were merged since last release:\n' + get_release_message(repo)
-  isDraft = True
+  isDraft = False
   isPrerelease = False
   print('releaseMessage:', releaseMessage)
   
@@ -108,7 +108,8 @@ def main():
 #         update_last_draft_release()
       else:
         print('new merged PRs detected, I will create a new draft release.')
-#         isDraft = true
+        isDraft =0 true
+        release = repo.create_git_release(releaseName, releaseMessage, isDraft, isPrerelease)
 #         create_release(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     else:
       print('There is no new merge since last release!!!!!, programs terminates here onwards')
