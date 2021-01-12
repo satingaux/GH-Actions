@@ -4,10 +4,8 @@ import sys
 from datetime import datetime
 
 def get_datetime_now():
-  now = datetime.now()
+  now = datetime.now().replace(microsecond=0)
   print("now =", now)
-  dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
-  print("date and time =", dt_string)
   return now
 def get_release_message(repo):
   start_date = get_datetime_now()
