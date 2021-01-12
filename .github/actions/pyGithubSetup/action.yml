@@ -1,0 +1,39 @@
+name: 'PyGithub'
+description: 'PyGithub Setup'
+inputs:
+  REPO_NAME:
+    description: "The name of the repo: user/repo_name"
+    required: true
+    default: 'DEFAULT_REPO_NAME'
+  CUR_VERSION:
+    description: "Current Version read from the file version.ini"
+    required: true
+    default: '0.0.0'
+  ACCESS_TOKEN:
+    description: "Github Access Token you want to use. Just pass GITHUB_TOKEN"
+    required: true
+    default: 'DEFAULT_ACCESS_TOKEN'
+  USER_NAME:
+    description: "User name"
+    required: true
+    default: 'DEFAULT_USER_NAME'
+ 
+# outputs:
+#   release_log: # id of output
+#     description: 'Generated release log'
+#   last_version: # id of output
+#     description: 'Last version of release'
+runs:
+  using: "docker"
+  image: "Dockerfile"
+#   args:
+#     - ${{ inputs.ACCESS_TOKEN }}
+#   using: "composite"
+#   steps:
+#     - run: echo Hello ${{ inputs.who-to-greet }}.
+#       shell: bash
+      
+#     - run: python main.py 
+
+  
+ 
