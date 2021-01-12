@@ -24,9 +24,11 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
   print('Began get_pull_requests()')
   print('Total Count of pull requests that have been merged = ',repo.get_pulls(state='merged', sort='updated', direction='desc').totalCount)
   pulls: List[PullRequest.PullRequest] = []
+  pulls_str = ''
   try:
     for pull in repo.get_pulls(state='merged', sort='updated', direction='desc'):
       print(pull.title)
+      pulls_str += pull.title
 #       if not pull.merged_at:
 #         continue
 #       merged_dt = dtutil.UTC_TZ.localize(pull.merged_at)
@@ -42,7 +44,7 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
       print('Github pulls error (request)', e)
   except GithubException as e:
       print('Gihub pulls error (github)', e)
-  return pulls 
+  return pulls_str 
 
 def main():
   print('Entered into main fun')
