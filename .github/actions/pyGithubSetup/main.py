@@ -8,9 +8,9 @@ def createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessa
   branch = repo.get_branch("main")
   commitSha = branch.commit.sha
   print('commitSha',commitSha)
-  tag = repo.create_git_tag(currentVersion, tagMessage, commitSha, 'commit')
+  tag = repo.create_git_tag(currentVersionTag, tagMessage, commitSha, 'commit')
   print('tag', tag.sha)
-  ref = repo.create_git_ref('refs/tags/'+currentVersion, tag.sha)
+  ref = repo.create_git_ref('refs/tags/'+currentVersionTag, tag.sha)
   release = repo.create_git_release(tag.tag, releaseName, releaseMessage, isDraft, isPrerelease)
   return release
 def read_file_content(repo, filePath):
