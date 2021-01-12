@@ -109,7 +109,7 @@ def main():
       else:
         print('new merged PRs detected, I will create a new draft release.')
         isDraft = True
-        release = repo.create_git_release(releaseName, releaseMessage, isDraft, isPrerelease)
+        release = repo.create_git_release( 'd0.0.1', releaseName, releaseMessage, isDraft, isPrerelease)
 #         create_release(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     else:
       print('There is no new merge since last release!!!!!, programs terminates here onwards')
