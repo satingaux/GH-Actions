@@ -15,8 +15,8 @@ def get_release_message(repo):
   else:
     latestRelease = repo.get_latest_release()
     start_date = latestRelease.created_at
-  pulls = get_pull_requests(repo, start_date, end_date, 100)
-  return pulls
+  return get_pull_requests(repo, start_date, end_date, 100)
+
 def get_inputs(input_name):
   return os.getenv('INPUT_{}'.format(input_name).upper())
 def createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease):
