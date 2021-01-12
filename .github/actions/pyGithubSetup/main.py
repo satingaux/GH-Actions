@@ -108,7 +108,7 @@ def main():
 #         update_last_draft_release()
       else:
         print('new merged PRs detected, I will create a new draft release.')
-        isDraft =0 true
+        isDraft = True
         release = repo.create_git_release(releaseName, releaseMessage, isDraft, isPrerelease)
 #         create_release(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     else:
