@@ -101,7 +101,7 @@ def main():
     print('The LastVersion is equal to the current version, So now we will create a draft release only if there is any merge since last release.')
     #     if there is a new merge since last_release
     startDate = get_start_date_of_latest_release(repo)
-    if get_pull_requests(repo, startDate).totalCount != 0: # there is a new merge since last release
+    if len(get_pull_requests(repo, startDate)) != 0: # there is a new merge since last release
       if repo.get_latest_release().draft:
         print('update_last_draft_release')
 #         update_last_draft_release()
