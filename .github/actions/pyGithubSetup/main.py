@@ -17,7 +17,7 @@ def get_release_message(repo):
     startDate = latestRelease.created_at
   pulls = get_pull_requests(repo, startDate, 100)
   for pull in pulls:
-    releaseMessage = releaseMessage + '\n\u2022' + pull.title + '(' + pull.url + ')'
+    releaseMessage = releaseMessage + '\n  \u2022 ' + pull.title + '(' + pull.url + ')'
   return releaseMessage
   
 def get_inputs(input_name):
