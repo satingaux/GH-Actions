@@ -34,7 +34,7 @@ def get_commits(repo):
   commits = repo.get_commits()
   for commit in commits:
     print(commit)
-def get_pull_requests(repo, end_date, start_date, max_pull_requests):
+def get_pull_requests(repo, start_date, end_date, max_pull_requests):
   print('Began get_pull_requests()')
   print('Total Count of pull requests that have been closed = ', repo.get_pulls(state='closed').totalCount)
   pulls: List[PullRequest.PullRequest] = []
@@ -49,13 +49,15 @@ def get_pull_requests(repo, end_date, start_date, max_pull_requests):
 #       updated_dt = dtutil.UTC_TZ.localize(pull.updated_at)
       print('merged_dt', pull.merged_at, 'updated_dt', pull.updated_at)
       print('start_date',start_date,'end_date',end_date)
-      if merged_dt > end_date:
-        continue
-      if updated_dt < start_date:
-        return pulls
-      print(pull.title)
-      pulls_str += pull.title
-      pulls.append(pull)
+      if merged_dt < start_date:
+        print(pull.title)
+        pulls_str += pull.title
+        pulls.append(pull)
+#       if merged_dt > end_date:
+#         continue
+#       if updated_dt < start_date:
+#         return pulls
+      
 #       if len(pulls) >= max_pull_requests:
 #         return pulls
   except RequestException as e:
