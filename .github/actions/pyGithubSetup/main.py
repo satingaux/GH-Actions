@@ -50,7 +50,7 @@ def main():
 
 
   if lastVersion < currentVersion:
-    release = createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
+    release = createRelease(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     print('Creation of new Release is completed with its tag name as', release.tag_name)
     #   https://pygithub.readthedocs.io/en/latest/github_objects/Repository.html#github.Repository.Repository.create_git_tag_and_release
   elif lastVersion == currentVersion:
