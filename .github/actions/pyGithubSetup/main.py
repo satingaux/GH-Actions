@@ -18,15 +18,15 @@ def read_file_content(repo, filePath):
   return repo.get_contents(filePath).decoded_content.decode().replace('\n', '')
 
 def main():
-  gh = Github(ACCESS_TOKEN)
-  repo = gh.get_repo(USER_NAME + '/' + REPO_NAME)
-  
   print('Entered into main fun')
   print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
   REPO_NAME = get_inputs('REPO_NAME')
   ACCESS_TOKEN = get_inputs('ACCESS_TOKEN')
   USER_NAME = get_inputs('USER_NAME')
-
+  
+  gh = Github(ACCESS_TOKEN)
+  repo = gh.get_repo(USER_NAME + '/' + REPO_NAME)
+  
   currentVersion = read_file_content(repo, 'version.ini')
   lastVersion = 'v0.0.0' #default lastversion
   tagMessage = 'Default Tag Message'
@@ -34,10 +34,6 @@ def main():
   releaseMessage = 'Release Message'
   isDraft = False
   isPrerelease = False
-  
-  #   read version.ini file
-  file_content = read_file_content(repo, 'version.ini')
-  print('VVVVVVVVVVVVVVVVVVVVVVVersion file: ', file_content,'~~~~~~')
   
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
@@ -57,9 +53,7 @@ def main():
   elif lastVersion > currentVersion:
     print('The currentVersion is smaller than the last version, which is not allowed, So the action terminates here onwards.')
     exit
-
-
-  
+    
 if __name__ == "__main__":
     main()
  
