@@ -3,7 +3,7 @@ from github import Github
 import sys
 from datetime import datetime
 
-get_datetime_now():
+def get_datetime_now():
   now = datetime.now()
   print("now =", now)
   dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
