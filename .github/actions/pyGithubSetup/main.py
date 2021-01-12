@@ -29,9 +29,9 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
     for pull in repo.get_pulls(state='closed', sort='updated', direction='desc'):
       if not pull.merged_at:
         continue
-      merged_dt = dtutil.UTC_TZ.localize(pull.merged_at)
-      updated_dt = dtutil.UTC_TZ.localize(pull.updated_at)
-      print('merged_dt', merged_dt, 'updated_dt', updated_dt)
+#       merged_dt = dtutil.UTC_TZ.localize(pull.merged_at)
+#       updated_dt = dtutil.UTC_TZ.localize(pull.updated_at)
+      print('merged_dt', pull.merged_at, 'updated_dt', pull.updated_at)
 #       if merged_dt > end_date:
 #         continue
 #       if updated_dt < start_date:
@@ -71,6 +71,7 @@ def main():
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
     lastVersion = 'v0.0.0'
+    latestReleaseDate = #repo createion date
   else:
     latestRelease = repo.get_latest_release()
     lastVersion = latestRelease.tag_name
