@@ -5,17 +5,17 @@ from datetime import datetime
 
 def get_datetime_now():
   now = datetime.now().replace(microsecond=0)
-  print("now =", now)
   return now
 def get_release_message(repo):
-  start_date = get_datetime_now()
-  end_date = get_datetime_now()
+  startDate = get_datetime_now()
+  endDate = get_datetime_now()
   if repo.get_releases().totalCount == 0:
-    start_date = repo.created_at
+    startDate = repo.created_at
   else:
     latestRelease = repo.get_latest_release()
-    start_date = latestRelease.created_at
-  return get_pull_requests(repo, start_date, end_date, 100)
+    startDate = latestRelease.created_at
+    print('latestRelease.created_at', latestRelease.created_at)
+  return get_pull_requests(repo, startDate, endDate, 100)
 
 def get_inputs(input_name):
   return os.getenv('INPUT_{}'.format(input_name).upper())
