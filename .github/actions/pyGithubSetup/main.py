@@ -87,7 +87,7 @@ def main():
   releaseMessage = 'Release Message as the list of all the PRs title ' + get_release_message(repo)
   isDraft = False
   isPrerelease = False
-  print('get_release_message(repo):', get_release_message(repo))
+  print('releaseMessage:', releaseMessage)
   
   
   
