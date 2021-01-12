@@ -7,6 +7,7 @@ def get_datetime_now():
   now = datetime.now().replace(microsecond=0)
   return now
 def get_release_message(repo):
+  releaseMessage = ''
   startDate = get_datetime_now()
   endDate = get_datetime_now()
   if repo.get_releases().totalCount == 0:
@@ -14,8 +15,11 @@ def get_release_message(repo):
   else:
     latestRelease = repo.get_latest_release()
     startDate = latestRelease.created_at
-  return get_pull_requests(repo, startDate, endDate, 100)
-
+  pulls = get_pull_requests(repo, startDate, endDate, 100)
+  for pull in pulls:
+    releaseMsg = releaseMsg + pull.title + '\n'
+  return releaseMsg
+  
 def get_inputs(input_name):
   return os.getenv('INPUT_{}'.format(input_name).upper())
 def createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease):
@@ -80,7 +84,7 @@ def main():
   lastVersion = 'v0.0.0' #default lastversion
   tagMessage = 'Default Tag Message'
   releaseName = 'Default Release Name'
-  releaseMessage = 'Release Message as the list of all the PRs title '
+  releaseMessage = 'Release Message as the list of all the PRs title ' + get_release_message(repo)
   isDraft = False
   isPrerelease = False
   print('get_release_message(repo):', get_release_message(repo))
