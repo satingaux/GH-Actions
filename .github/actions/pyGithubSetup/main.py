@@ -37,7 +37,7 @@ def main():
   labels = repo.get_labels()
   
   #   read version.ini file
-  file_content = repo.get_contents('version.ini', branch = 'sachinsharmaepisource-patch-1')
+  file_content = repo.get_contents('version.ini')
   print('VVVVVVVVVVVVVVVVVVVVVVVersion file: ', file_content, '~~~~~~', file_content.decoded_content.decode(),'~~~~~~')
   
   if repo.get_releases().totalCount == 0:
