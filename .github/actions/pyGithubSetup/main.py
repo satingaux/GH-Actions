@@ -17,7 +17,7 @@ def get_release_message(repo):
     startDate = latestRelease.created_at
   pulls = get_pull_requests(repo, startDate, 100)
   for pull in pulls:
-    temp = '\n\t\u2022 ' + pull.title + '\t(' + pull.url + ')' + '\n\t\t' + pull.body
+    temp = '\n\t\u2022 ' + pull.title + '\n\t\t' + pull.body
     releaseMessage = releaseMessage + temp
   return releaseMessage
   
