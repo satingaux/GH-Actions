@@ -82,7 +82,7 @@ def main():
   lastVersion = 'v0.0.0' #default lastversion
   tagMessage = 'Default Tag Message'
   releaseName = 'Default Release Name'
-  releaseMessage = 'Release Message as the list of all the PRs title ' + get_release_message(repo)
+  releaseMessage = 'Release Message as the list of all the PRs title\n\n ' + get_release_message(repo)
   isDraft = False
   isPrerelease = False
   print('releaseMessage:', releaseMessage)
