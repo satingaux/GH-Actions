@@ -16,6 +16,11 @@ def createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessa
   return release
 def read_file_content(repo, filePath):
   return repo.get_contents(filePath).decoded_content.decode().replace('\n', '')
+def get_commits(repo):
+  print(repo.get_stats_commit_activity())
+#   commits = repo.get_commits()
+#   for commit in commits:
+#     print(commit)
 def get_pull_requests(repo, start_date, end_date, max_pull_requests):
   pulls: List[PullRequest.PullRequest] = []
   try:
@@ -54,6 +59,8 @@ def main():
   releaseMessage = 'Release Message'
   isDraft = False
   isPrerelease = False
+  
+  get_commits(repo)
   
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
