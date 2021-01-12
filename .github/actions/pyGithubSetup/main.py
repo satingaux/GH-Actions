@@ -49,11 +49,9 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
         continue
       merged_dt = pull.merged_at
       updated_dt = pull.updated_at
-#       merged_dt = dtutil.UTC_TZ.localize(pull.merged_at)
-#       updated_dt = dtutil.UTC_TZ.localize(pull.updated_at)
       print('merged_dt', pull.merged_at, 'updated_dt', pull.updated_at)
       print('start_date',start_date,'end_date',end_date)
-      if merged_dt < start_date:
+      if merged_dt >= start_date:
         print(pull.title)
         pulls_str += pull.title
         pulls.append(pull)
