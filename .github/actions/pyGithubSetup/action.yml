@@ -5,10 +5,6 @@ inputs:
     description: "The name of the repo: user/repo_name"
     required: true
     default: 'DEFAULT_REPO_NAME'
-  CUR_VERSION:
-    description: "Current Version read from the file version.ini"
-    required: true
-    default: '0.0.0'
   ACCESS_TOKEN:
     description: "Github Access Token you want to use. Just pass GITHUB_TOKEN"
     required: true
@@ -28,12 +24,5 @@ runs:
   image: "Dockerfile"
 #   args:
 #     - ${{ inputs.ACCESS_TOKEN }}
-#   using: "composite"
-#   steps:
-#     - run: echo Hello ${{ inputs.who-to-greet }}.
-#       shell: bash
-      
-#     - run: python main.py 
-
   
  
