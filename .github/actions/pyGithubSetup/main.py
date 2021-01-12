@@ -25,7 +25,7 @@ def get_release_message(repo):
   
 def get_inputs(input_name):
   return os.getenv('INPUT_{}'.format(input_name).upper())
-def createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease):
+def create_release(repo, currentVersionTag, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease):
 # https://pygithub.readthedocs.io/en/latest/github_objects/Repository.html#github.Repository.Repository.create_git_tag_and_release
   branch = repo.get_branch("main")
   commitSha = branch.commit.sha
@@ -95,8 +95,9 @@ def main():
   if lastVersion < currentVersion:
     releaseName = releaseName + ' ' + currentVersion + ' of ' + REPO_NAME
     releaseMessage = currentVersion + '\n' + releaseMessage
-    release = createRelease(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
+    release = create_release(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     print('Creation of new Release is completed with its tag name as', release.tag_name)
+    exit
   elif lastVersion == currentVersion:
     print('The LastVersion is equal to the current version, So now we will create a draft release only if there is any merge since last release.')
     #     if there is a new merge since last_release
@@ -106,11 +107,11 @@ def main():
         print('update_last_draft_release')
 #         update_last_draft_release()
       else:
-        print('create_draft_release')
+        print('new merged PRs detected, I will create a new draft release.')
+#         isDraft = true
+#         create_release(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     else:
-      print('There is no new merge since last release')
-#         create_draft_release()  
-     
+      print('There is no new merge since last release!!!!!, programs terminates here onwards')
     exit
   elif lastVersion > currentVersion:
     print('The currentVersion is smaller than the last version, which is not allowed, So the action terminates here onwards.')
