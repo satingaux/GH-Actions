@@ -23,18 +23,19 @@ def get_commits(repo):
 def get_pull_requests(repo, start_date, end_date, max_pull_requests):
   pulls: List[PullRequest.PullRequest] = []
   try:
-    for pull in repo.get_pulls(state='closed', sort='updated', direction='desc'):
-      if not pull.merged_at:
-        continue
-      merged_dt = dtutil.UTC_TZ.localize(pull.merged_at)
-      updated_dt = dtutil.UTC_TZ.localize(pull.updated_at)
-      if merged_dt > end_date:
-        continue
-      if updated_dt < start_date:
-        return pulls
-      pulls.append(pull)
-      if len(pulls) >= max_pull_requests:
-        return pulls
+    for pull in repo.get_pulls(state='merged', sort='updated', direction='desc'):
+      print(pull.title)
+#       if not pull.merged_at:
+#         continue
+#       merged_dt = dtutil.UTC_TZ.localize(pull.merged_at)
+#       updated_dt = dtutil.UTC_TZ.localize(pull.updated_at)
+#       if merged_dt > end_date:
+#         continue
+#       if updated_dt < start_date:
+#         return pulls
+#       pulls.append(pull)
+#       if len(pulls) >= max_pull_requests:
+#         return pulls
   except RequestException as e:
       print('Github pulls error (request)', e)
   except GithubException as e:
@@ -59,7 +60,7 @@ def main():
   isDraft = False
   isPrerelease = False
   
-  get_commits(repo)
+  get_pull_requests(repo, 0, 0, 0)
   
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
