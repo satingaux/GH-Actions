@@ -81,8 +81,8 @@ def main():
   currentVersion = read_file_content(repo, 'version.ini')
   lastVersion = 'v0.0.0' #default lastversion
   tagMessage = 'Default Tag Message'
-  releaseName = 'Default Release Name'
-  releaseMessage = 'Release Message as the list of all the PRs title\n\n ' + get_release_message(repo)
+  releaseName = 'Release'
+  releaseMessage = 'Features added/improved in ' + REPO_NAME + ':\n\n' + 'Following are the PRs title which were merged since last release:\n' + get_release_message(repo)
   isDraft = False
   isPrerelease = False
   print('releaseMessage:', releaseMessage)
@@ -99,6 +99,7 @@ def main():
 
 
   if lastVersion < currentVersion:
+    releaseName = releaseName + currentVersion + '' + REPO_NAME
     release = createRelease(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     print('Creation of new Release is completed with its tag name as', release.tag_name)
   elif lastVersion == currentVersion:
