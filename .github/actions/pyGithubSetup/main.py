@@ -1,7 +1,23 @@
 import os
 from github import Github
 import sys
+from datetime import datetime
 
+get_datetime_now():
+  now = datetime.now()
+  print("now =", now)
+  dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
+  print("date and time =", dt_string)
+  return dt_string
+def get_release_message(repo):
+  start_date = get_datetime_now()
+  end_date = get_datetime_now()
+  if repo.get_releases().totalCount == 0:
+    start_date = repo.created_at
+  else:
+    latestRelease = repo.get_latest_release()
+    start_date = latestRelease.created_at
+  pulls = get_pull_requests(repo, start_date, end_date, 100)
 def get_inputs(input_name):
   return os.getenv('INPUT_{}'.format(input_name).upper())
 def createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease):
@@ -32,10 +48,11 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
 #       merged_dt = dtutil.UTC_TZ.localize(pull.merged_at)
 #       updated_dt = dtutil.UTC_TZ.localize(pull.updated_at)
       print('merged_dt', pull.merged_at, 'updated_dt', pull.updated_at)
-#       if merged_dt > end_date:
-#         continue
-#       if updated_dt < start_date:
-#         return pulls
+      print('start_date',start_date,'end_date',end_date)
+      if merged_dt > end_date:
+        continue
+      if updated_dt < start_date:
+        return pulls
       print(pull.title)
       pulls_str += pull.title
       pulls.append(pull)
@@ -61,7 +78,7 @@ def main():
   lastVersion = 'v0.0.0' #default lastversion
   tagMessage = 'Default Tag Message'
   releaseName = 'Default Release Name'
-  releaseMessage = 'Release Message as the list of all the PRs title ' + get_pull_requests(repo, 0, 0, 0)
+  releaseMessage = 'Release Message as the list of all the PRs title ' + get_release_message(repo)
   isDraft = False
   isPrerelease = False
   latestReleaseDate = ''
@@ -71,7 +88,6 @@ def main():
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
     lastVersion = 'v0.0.0'
-    latestReleaseDate = 'latestReleaseDate'#repo createion date
   else:
     latestRelease = repo.get_latest_release()
     lastVersion = latestRelease.tag_name
