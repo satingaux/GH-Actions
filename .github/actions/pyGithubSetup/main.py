@@ -22,7 +22,7 @@ def get_commits(repo):
     print(commit)
 def get_pull_requests(repo, start_date, end_date, max_pull_requests):
   print('Began get_pull_requests()')
-  print('Total Count of pull requests that have been merged = ',repo.get_pulls(state='merged', sort='updated', direction='desc').totalCount)
+  print('Total Count of pull requests that have been merged = ',repo.get_pulls().totalCount)
   pulls: List[PullRequest.PullRequest] = []
   pulls_str = ''
   try:
