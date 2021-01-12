@@ -6,7 +6,7 @@ from datetime import datetime
 def get_datetime_now():
   now = datetime.now()
   print("now =", now)
-  dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
+  dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
   print("date and time =", dt_string)
   return dt_string
 def get_release_message(repo):
