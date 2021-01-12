@@ -18,6 +18,9 @@ def read_file_content(repo, filePath):
   return repo.get_contents(filePath).decoded_content.decode().replace('\n', '')
 
 def main():
+  gh = Github(ACCESS_TOKEN)
+  repo = gh.get_repo(USER_NAME + '/' + REPO_NAME)
+  
   print('Entered into main fun')
   print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
   REPO_NAME = get_inputs('REPO_NAME')
@@ -31,10 +34,6 @@ def main():
   releaseMessage = 'Release Message'
   isDraft = False
   isPrerelease = False
-
-  gh = Github(ACCESS_TOKEN)
-  repo = gh.get_repo(USER_NAME + '/' + REPO_NAME)
-  labels = repo.get_labels()
   
   #   read version.ini file
   file_content = read_file_content(repo, 'version.ini')
