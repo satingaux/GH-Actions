@@ -14,7 +14,6 @@ def get_release_message(repo):
   else:
     latestRelease = repo.get_latest_release()
     startDate = latestRelease.created_at
-    print('latestRelease.created_at', latestRelease.created_at)
   return get_pull_requests(repo, startDate, endDate, 100)
 
 def get_inputs(input_name):
@@ -35,7 +34,7 @@ def get_commits(repo):
   commits = repo.get_commits()
   for commit in commits:
     print(commit)
-def get_pull_requests(repo, start_date, end_date, max_pull_requests):
+def get_pull_requests(repo, end_date, start_date, max_pull_requests):
   print('Began get_pull_requests()')
   print('Total Count of pull requests that have been closed = ', repo.get_pulls(state='closed').totalCount)
   pulls: List[PullRequest.PullRequest] = []
@@ -63,7 +62,7 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
       print('Github pulls error (request)', e)
   except GithubException as e:
       print('Gihub pulls error (github)', e)
-  return pulls_str
+  return pulls
 
 def main():
   print('Entered into main fun')
