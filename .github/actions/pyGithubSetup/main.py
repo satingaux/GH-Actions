@@ -6,16 +6,18 @@ from datetime import datetime
 def get_datetime_now():
   now = datetime.now().replace(microsecond=0)
   return now
-
-def get_release_message(repo):
-  releaseMessage = ''
+def get_start_date_of_latest_release(repo):
   startDate = get_datetime_now()
   if repo.get_releases().totalCount == 0:
     startDate = repo.created_at
   else:
     latestRelease = repo.get_latest_release()
     startDate = latestRelease.created_at
-  pulls = get_pull_requests(repo, startDate, 100)
+  return startDate
+def get_release_message(repo):
+  releaseMessage = ''
+  startDate = get_start_date_of_latest_release(repo)
+  pulls = get_pull_requests(repo, startDate)
   for pull in pulls:
     temp = '\n\t\u2022 ' + pull.title + '\n\t\t' + pull.body
     releaseMessage = releaseMessage + temp
@@ -39,7 +41,7 @@ def get_commits(repo):
   commits = repo.get_commits()
   for commit in commits:
     print(commit)
-def get_pull_requests(repo, start_date, max_pull_requests):
+def get_pull_requests(repo, start_date):
   print('Began get_pull_requests()')
   print('Total Count of pull requests that have been closed = ', repo.get_pulls(state='closed').totalCount)
   pulls: List[PullRequest.PullRequest] = []
@@ -96,7 +98,17 @@ def main():
     release = createRelease(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     print('Creation of new Release is completed with its tag name as', release.tag_name)
   elif lastVersion == currentVersion:
-    print('The LastVersion is equal to the current version, So the action terminates here onwards.')
+    print('The LastVersion is equal to the current version, So now we will create a draft release only if there is any merge since last release.')
+    #     if there is a new merge since last_release
+    startDate = get_start_date_of_latest_release(repo)
+    if get_pull_requests(repo, startDate).totalCount != 0: # there is a new merge since last release
+      if repo.get_latest_release().draft:
+        print('update_last_draft_release')
+#         update_last_draft_release()
+      else:
+        print('create_draft_release')
+#         create_draft_release()  
+     
     exit
   elif lastVersion > currentVersion:
     print('The currentVersion is smaller than the last version, which is not allowed, So the action terminates here onwards.')
