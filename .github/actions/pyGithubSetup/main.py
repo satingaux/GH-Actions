@@ -21,6 +21,7 @@ def get_commits(repo):
   for commit in commits:
     print(commit)
 def get_pull_requests(repo, start_date, end_date, max_pull_requests):
+  print('into get_pull_requests()')
   pulls: List[PullRequest.PullRequest] = []
   try:
     
