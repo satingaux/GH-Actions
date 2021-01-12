@@ -79,7 +79,7 @@ def main():
   tagMessage = 'Default Tag Message'
   releaseName = 'Release'
   releaseMessage = 'Features added/improved in ' + REPO_NAME + ':\n\n' + 'Following are the PRs title which were merged since last release:\n' + get_release_message(repo)
-  isDraft = False
+  isDraft = True
   isPrerelease = False
   print('releaseMessage:', releaseMessage)
   
