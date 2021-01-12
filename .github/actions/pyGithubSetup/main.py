@@ -13,6 +13,8 @@ def createRelease(repo, currentVersionTag, tagMessage, releaseName, releaseMessa
   ref = repo.create_git_ref('refs/tags/'+currentVersion, tag.sha)
   release = repo.create_git_release(tag.tag, releaseName, releaseMessage, isDraft, isPrerelease)
   return release
+def read_file_content(repo, filePath):
+  return repo.get_contents(filePath).decoded_content.decode().replace('\n', '')
 
 def main():
   print('Entered into main fun')
@@ -37,8 +39,8 @@ def main():
   labels = repo.get_labels()
   
   #   read version.ini file
-  file_content = repo.get_contents('version.ini')
-  print('VVVVVVVVVVVVVVVVVVVVVVVersion file: ', file_content, '~~~~~~', file_content.decoded_content.decode(),'~~~~~~')
+  file_content = read_file_content(repo, 'version.ini')
+  print('VVVVVVVVVVVVVVVVVVVVVVVersion file: ', file_content,'~~~~~~')
   
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
