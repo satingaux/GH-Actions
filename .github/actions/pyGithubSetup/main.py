@@ -22,10 +22,9 @@ def get_commits(repo):
     print(commit)
 def get_pull_requests(repo, start_date, end_date, max_pull_requests):
   print('Began get_pull_requests()')
-  print(repo.get_pulls(state='merged', sort='updated', direction='desc').totalCount)
+  print('Total Count of pull requests that have been merged = ',repo.get_pulls(state='merged', sort='updated', direction='desc').totalCount)
   pulls: List[PullRequest.PullRequest] = []
   try:
-    
     for pull in repo.get_pulls(state='merged', sort='updated', direction='desc'):
       print(pull.title)
 #       if not pull.merged_at:
@@ -36,7 +35,7 @@ def get_pull_requests(repo, start_date, end_date, max_pull_requests):
 #         continue
 #       if updated_dt < start_date:
 #         return pulls
-#       pulls.append(pull)
+      pulls.append(pull)
 #       if len(pulls) >= max_pull_requests:
 #         return pulls
   except RequestException as e:
@@ -59,11 +58,11 @@ def main():
   lastVersion = 'v0.0.0' #default lastversion
   tagMessage = 'Default Tag Message'
   releaseName = 'Default Release Name'
-  releaseMessage = 'Release Message'
+  releaseMessage = 'Release Message' + get_pull_requests(repo, 0, 0, 0)
   isDraft = False
   isPrerelease = False
   
-  get_pull_requests(repo, 0, 0, 0)
+  
   
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
