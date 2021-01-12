@@ -8,7 +8,7 @@ def get_datetime_now():
   print("now =", now)
   dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
   print("date and time =", dt_string)
-  return dt_string
+  return now
 def get_release_message(repo):
   start_date = get_datetime_now()
   end_date = get_datetime_now()
