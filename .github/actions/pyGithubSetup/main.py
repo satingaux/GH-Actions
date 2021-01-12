@@ -71,7 +71,7 @@ def main():
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
     lastVersion = 'v0.0.0'
-    latestReleaseDate = #repo createion date
+    latestReleaseDate = 'latestReleaseDate'#repo createion date
   else:
     latestRelease = repo.get_latest_release()
     lastVersion = latestRelease.tag_name
