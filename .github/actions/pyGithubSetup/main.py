@@ -107,6 +107,8 @@ def main():
 #         update_last_draft_release()
       else:
         print('create_draft_release')
+     else:
+      print('There is no new merge since last release')
 #         create_draft_release()  
      
     exit
