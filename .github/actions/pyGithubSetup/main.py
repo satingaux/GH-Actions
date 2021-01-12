@@ -17,7 +17,7 @@ def get_release_message(repo):
     startDate = latestRelease.created_at
   pulls = get_pull_requests(repo, startDate, 100)
   for pull in pulls:
-    temp = '\n\t\t\u2022 ' + pull.title + '\t(' + pull.url + ')' + '\n\t\t\t' + pull.body + '\n\t\t\t' + pull.commits_url
+    temp = '\n\t\u2022 ' + pull.title + '\t(' + pull.url + ')' + '\n\t\t' + pull.body
     releaseMessage = releaseMessage + temp
   return releaseMessage
   
@@ -92,6 +92,7 @@ def main():
 
   if lastVersion < currentVersion:
     releaseName = releaseName + ' ' + currentVersion + ' of ' + REPO_NAME
+    releaseMessage = currentVersion + '\n' + releaseMessage
     release = createRelease(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
     print('Creation of new Release is completed with its tag name as', release.tag_name)
   elif lastVersion == currentVersion:
