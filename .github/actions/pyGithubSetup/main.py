@@ -19,7 +19,7 @@ def get_release_message(repo):
   startDate = get_start_date_of_latest_release(repo)
   pulls = get_pull_requests(repo, startDate)
   for pull in pulls:
-    temp = '\n\t\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.id) + ')'
+    temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
     releaseMessage = releaseMessage + temp
   return releaseMessage
   
