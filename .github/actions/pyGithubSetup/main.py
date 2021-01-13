@@ -23,7 +23,7 @@ def get_release_message(repo):
     if pull.base.ref == 'main' and pull.head.ref == 'develop':
       temp += '\n\u2022\t' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
     if pull.base.ref == 'develop' and pull.head.ref == 'feature':
-      temp += '\n\t\u2022\t' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
+      temp += '\n\t\t\u2022\t' + pull.title + '\n\t\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
 #     temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
     releaseMessage = releaseMessage + temp
   return releaseMessage
@@ -87,7 +87,6 @@ def main():
   releaseMessage = ''
   isDraft = False
   isPrerelease = False
-  print('releaseMessage:', releaseMessage)
   
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
@@ -97,7 +96,6 @@ def main():
     lastVersion = latestRelease.tag_name
     print('lastVersion fetched from github tags is', lastVersion)
 
-  print('##############', get_release_message(repo))
   if lastVersion < currentVersion:
     releaseName = releaseName + ' ' + currentVersion + ' of ' + REPO_NAME
     releaseMessage = currentVersion + '\n' + 'Features added/improved in ' + REPO_NAME + ':\n\n' + 'Following are the PRs title which were merged since last release:\n' + get_release_message(repo)
