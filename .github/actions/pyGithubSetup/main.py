@@ -19,13 +19,14 @@ def get_release_message(repo):
   startDate = get_start_date_of_latest_release(repo)
   pulls = get_pull_requests(repo, startDate)
   for pull in pulls:
-    temp = ''
+    no_tab = ''
+    one_tab = ''
     if pull.base.ref == 'main' and pull.head.ref == 'develop':
-      temp += '\n\u2022\t' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
+      no_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
     if pull.base.ref == 'develop' and pull.head.ref == 'feature':
-      temp += '\n\t\t\u2022\t' + pull.title + '\n\t\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
+      one_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
 #     temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
-    releaseMessage = releaseMessage + temp
+    releaseMessage = no_tab + '\n\t' + one_tab
   return releaseMessage
   
 def get_inputs(input_name):

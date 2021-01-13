@@ -3,15 +3,16 @@
 name: Python
 
 on:
-  push:
-    branches: [ main ]
+#   push:
+#     branches: [ main ]
   pull_request:
     branches: [ main ]
+    types: [ closed ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
       - name: Install PyGithub & Execute py script
