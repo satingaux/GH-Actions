@@ -16,11 +16,11 @@ def get_start_date_of_latest_release(repo):
   return startDate
 def get_release_message(repo):
   releaseMessage = ''
+  no_tab = ''
+  one_tab = ''
   startDate = get_start_date_of_latest_release(repo)
   pulls = get_pull_requests(repo, startDate)
   for pull in pulls:
-    no_tab = ''
-    one_tab = ''
     if pull.base.ref == 'main' and pull.head.ref == 'develop':
       no_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
     if pull.base.ref == 'develop' and pull.head.ref == 'feature':
