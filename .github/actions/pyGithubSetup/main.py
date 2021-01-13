@@ -16,11 +16,18 @@ def get_start_date_of_latest_release(repo):
   return startDate
 def get_release_message(repo):
   releaseMessage = ''
+  no_tab = ''
+  one_tab = ''
   startDate = get_start_date_of_latest_release(repo)
   pulls = get_pull_requests(repo, startDate)
   for pull in pulls:
-    temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
-    releaseMessage = releaseMessage + temp
+    if pull.base.ref == 'main' and pull.head.ref == 'develop':
+      no_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
+    if pull.base.ref == 'develop' and pull.head.ref == 'feature':
+      one_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
+#     temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
+  releaseMessage = no_tab + '\n\n\t Embeded merges between develop & feature\n\t' + one_tab
+  print('release msg', releaseMessage)
   return releaseMessage
   
 def get_inputs(input_name):
@@ -45,18 +52,17 @@ def get_pull_requests(repo, start_date):
   print('Began get_pull_requests()')
   print('Total Count of pull requests that have been closed = ', repo.get_pulls(state='closed').totalCount)
   pulls: List[PullRequest.PullRequest] = []
-  pulls_str = ''
   try:
     for pull in repo.get_pulls(state='closed', sort='updated', direction='desc'):
       if not pull.merged_at:
         continue
       merged_dt = pull.merged_at
       updated_dt = pull.updated_at
-      print('merged_dt ', merged_dt, '\nupdated_dt ', updated_dt)
-      print('start_date',start_date)
+#       print(pull.title + '\t->\t' + pull.body)
+#       print('merged_dt ', merged_dt, '\nupdated_dt ', updated_dt)
+#       print('start_date',start_date)
       if merged_dt >= start_date:
         print(pull.title)
-        pulls_str += pull.title
         pulls.append(pull)
   except RequestException as e:
       print('Github pulls error (request)', e)
@@ -81,7 +87,6 @@ def main():
   releaseMessage = ''
   isDraft = False
   isPrerelease = False
-  print('releaseMessage:', releaseMessage)
   
   if repo.get_releases().totalCount == 0:
     print('There is no previous release, so lastVerseion is set to default - v0.0.0')
@@ -90,7 +95,6 @@ def main():
     latestRelease = repo.get_latest_release()
     lastVersion = latestRelease.tag_name
     print('lastVersion fetched from github tags is', lastVersion)
-
 
   if lastVersion < currentVersion:
     releaseName = releaseName + ' ' + currentVersion + ' of ' + REPO_NAME
@@ -104,10 +108,10 @@ def main():
     startDate = get_start_date_of_latest_release(repo)
     if len(get_pull_requests(repo, startDate)) != 0: # there is a new merge since last release
       if repo.get_latest_release().draft:
-        print('update_last_draft_release')
+        print('update_last_draft_release~~~~~~~~~~~~~~~~~~~~')
 #         update_last_draft_release()
       else:
-        print('new merged PRs detected, I will create a new draft release.')
+        print('new merged PRs detected, I will create a new draft release.~~~~~~~~~~~~~~~~~~~')
 #         isDraft = True
 #         release = repo.create_git_release( 'd0.0.1', releaseName, releaseMessage, isDraft, isPrerelease)
 #         create_release(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
