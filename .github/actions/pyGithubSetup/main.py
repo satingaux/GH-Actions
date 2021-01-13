@@ -52,8 +52,9 @@ def get_pull_requests(repo, start_date):
         continue
       merged_dt = pull.merged_at
       updated_dt = pull.updated_at
-      print('merged_dt ', merged_dt, '\nupdated_dt ', updated_dt)
-      print('start_date',start_date)
+      print(pull.title)
+#       print('merged_dt ', merged_dt, '\nupdated_dt ', updated_dt)
+#       print('start_date',start_date)
       if merged_dt >= start_date:
         print(pull.title)
         pulls_str += pull.title
@@ -104,10 +105,10 @@ def main():
     startDate = get_start_date_of_latest_release(repo)
     if len(get_pull_requests(repo, startDate)) != 0: # there is a new merge since last release
       if repo.get_latest_release().draft:
-        print('update_last_draft_release')
+        print('update_last_draft_release~~~~~~~~~~~~~~~~~~~~')
 #         update_last_draft_release()
       else:
-        print('new merged PRs detected, I will create a new draft release.')
+        print('new merged PRs detected, I will create a new draft release.~~~~~~~~~~~~~~~~~~~')
 #         isDraft = True
 #         release = repo.create_git_release( 'd0.0.1', releaseName, releaseMessage, isDraft, isPrerelease)
 #         create_release(repo, currentVersion, tagMessage, releaseName, releaseMessage, isDraft, isPrerelease)
