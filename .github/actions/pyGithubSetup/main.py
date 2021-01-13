@@ -15,20 +15,20 @@ def get_start_date_of_latest_release(repo):
     startDate = latestRelease.created_at
   return startDate
 def get_release_message(repo):
-  releaseMessage = ''
-  no_tab = ''
-  one_tab = ''
+  releaseMessage = { 'main': [], 'develop': [], 'feature': []}
+  releaseMsgStr = ''
   startDate = get_start_date_of_latest_release(repo)
   pulls = get_pull_requests(repo, startDate)
   for pull in pulls:
-    if pull.base.ref == 'main' and pull.head.ref == 'develop':
-      no_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
-    if pull.base.ref == 'develop' and pull.head.ref == 'feature':
-      one_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
-#     temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
-  releaseMessage = no_tab + '\n\n\t Embeded merges between develop & feature\n\t' + one_tab
-  print('release msg', releaseMessage)
-  return releaseMessage
+    log = '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ') from head branch: ' + pull.head.ref 
+    releaseMessage[pull.base.ref].append(log)
+
+  for rel in releaseMessage:
+    releaseMsgStr += '\n\n\tBase Branch -> ' + rel
+    for log in releaseMessage[rel]:
+      releaseMsgStr += log
+  print('release msg', releaseMsgStr)
+  return releaseMsgStr
   
 def get_inputs(input_name):
   return os.getenv('INPUT_{}'.format(input_name).upper())
@@ -62,7 +62,7 @@ def get_pull_requests(repo, start_date):
 #       print('merged_dt ', merged_dt, '\nupdated_dt ', updated_dt)
 #       print('start_date',start_date)
       if merged_dt >= start_date:
-        print(pull.title)
+#         print(pull.title)
         pulls.append(pull)
   except RequestException as e:
       print('Github pulls error (request)', e)
