@@ -26,7 +26,8 @@ def get_release_message(repo):
     if pull.base.ref == 'develop' and pull.head.ref == 'feature':
       one_tab += '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ')'
 #     temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
-    releaseMessage = no_tab + '\n\t' + one_tab
+  releaseMessage = no_tab + '\n\n\t Embeded merges between develop & feature\n\t' + one_tab
+  print('release msg', releaseMessage)
   return releaseMessage
   
 def get_inputs(input_name):
@@ -51,7 +52,6 @@ def get_pull_requests(repo, start_date):
   print('Began get_pull_requests()')
   print('Total Count of pull requests that have been closed = ', repo.get_pulls(state='closed').totalCount)
   pulls: List[PullRequest.PullRequest] = []
-  pulls_str = ''
   try:
     for pull in repo.get_pulls(state='closed', sort='updated', direction='desc'):
       if not pull.merged_at:
@@ -63,7 +63,6 @@ def get_pull_requests(repo, start_date):
 #       print('start_date',start_date)
       if merged_dt >= start_date:
         print(pull.title)
-        pulls_str += pull.title
         pulls.append(pull)
   except RequestException as e:
       print('Github pulls error (request)', e)
