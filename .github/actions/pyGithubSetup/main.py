@@ -95,7 +95,8 @@ def main():
     latestRelease = repo.get_latest_release()
     lastVersion = latestRelease.tag_name
     print('lastVersion fetched from github tags is', lastVersion)
-
+  
+  print('get_release_message', get_release_message(repo))
   if lastVersion < currentVersion:
     releaseName = releaseName + ' ' + currentVersion + ' of ' + REPO_NAME
     releaseMessage = currentVersion + '\n' + 'Features added/improved in ' + REPO_NAME + ':\n\n' + 'Following are the PRs title which were merged since last release:\n' + get_release_message(repo)
