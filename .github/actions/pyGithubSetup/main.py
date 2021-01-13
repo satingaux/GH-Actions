@@ -52,7 +52,7 @@ def get_pull_requests(repo, start_date):
         continue
       merged_dt = pull.merged_at
       updated_dt = pull.updated_at
-      print(pull.title)
+      print(pull.title + '\t->\t' + pull.body)
 #       print('merged_dt ', merged_dt, '\nupdated_dt ', updated_dt)
 #       print('start_date',start_date)
       if merged_dt >= start_date:
