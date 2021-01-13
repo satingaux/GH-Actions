@@ -22,9 +22,8 @@ def get_release_message(repo):
     temp = ''
     if pull.base.ref == 'main' and pull.head.ref == 'develop':
       temp += '\n\u2022 merged main with develop' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
-    elif pull.base.ref == 'develop' and pull.head.ref == 'feature':
+    if pull.base.ref == 'develop' and pull.head.ref == 'feature':
       temp += '\n\t\u2022 merged develop with feature' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
-    releaseMessage = releaseMessage + temp
 #     temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
     releaseMessage = releaseMessage + temp
   return releaseMessage
