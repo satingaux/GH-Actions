@@ -39,7 +39,7 @@ def get_release_message(repo, tag_name, REPO_NAME):
   start_date = get_start_date_of_latest_release(repo)
   pulls = get_pull_requests(repo, start_date)
   for pull in pulls:
-    msg = '\n\u2022\t' + pull.title + '\t (#' + str(pull.number) + ') from head branch: ' + pull.head.ref 
+    msg = '\n\t\u2022\t' + pull.title + '\t (#' + str(pull.number) + ') from head branch: ' + pull.head.ref 
     release_message_dct[pull.base.ref].append(msg)
   for baseBranch in release_message_dct:
     if len(release_message_dct[baseBranch]) != 0:
