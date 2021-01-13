@@ -23,7 +23,7 @@ def get_release_message(repo):
     if pull.base.ref == 'main' and pull.head.ref == 'develop':
       temp += '\n\u2022\t' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
     if pull.base.ref == 'develop' and pull.head.ref == 'feature':
-      temp += '\n\t\t\u2022\t' + pull.title + '\n\t\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
+      temp += '\n\t\t\u2022\t' + pull.title + '\t' + pull.body + '\t(#' + str(pull.number) + ')'
 #     temp = '\n\u2022 ' + pull.title + '\n\t\t' + pull.body + '\t(#' + str(pull.number) + ')'
     releaseMessage = releaseMessage + temp
   return releaseMessage
