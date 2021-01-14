@@ -13,16 +13,8 @@ inputs:
     description: "User name"
     required: true
     default: 'DEFAULT_USER_NAME'
- 
-# outputs:
-#   release_log: # id of output
-#     description: 'Generated release log'
-#   last_version: # id of output
-#     description: 'Last version of release'
 runs:
   using: "docker"
   image: "Dockerfile"
-#   args:
-#     - ${{ inputs.ACCESS_TOKEN }}
   
  
