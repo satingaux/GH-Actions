@@ -1,18 +1,18 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Python
+name: Create Release
 
 on:
-  push: # supposed to be comment for master merge only
-    branches: [ main ]
   pull_request:
     branches: [ main ]
     types: [ closed ]
+#   push: # for testing
+#     branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-#     if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
       - name: Install PyGithub & Execute py script
