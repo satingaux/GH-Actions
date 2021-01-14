@@ -3,6 +3,28 @@ import sys
 from github import Github
 from datetime import datetime
 
+'''
+  requiremnet:
+    There must be a valid version.ini file:
+      Have content in the format of v0.0.1
+      Content must start atleast from v0.0.1 (not v0.0.0)
+  
+    The streamline of release creation is as follows:
+      Multiple feature PRs -(merge)> feature branch -(merge)> develop branch -(merge)> main branch
+  
+  we capture the current version and last version:
+    if current_version > last_version:
+      create_new release()
+    elif current_version == last_version:
+      if is_new_merge_with_main():
+        if is_last_release_draft():
+          update_last_draft_release()
+        else:
+          create_new_draft_release()
+    else:
+      the current_version is equal to last version, no new release.
+'''
+
 def get_datetime_now():
   now = datetime.now().replace(microsecond=0)
   return now
